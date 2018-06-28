@@ -54,6 +54,20 @@ function transform(cells) {
     pointHitRadius: 10
   };
 
+
+  function getColor(index,shade){
+    const startHue= 0;
+    const increase=37;
+    var hue,sat,light;
+    
+    hue = ((startHue+(increase*index)) % 360);
+    sat = 100;
+    light =  (shade?60:70)-((((increase*index)) / 360)*8);
+
+    var color="hsl("+hue+","+sat+"%,"+light+"%)";
+    return color;
+  }
+
   const dates = [];
   const datasets = {};
   charRange("B", "T").forEach((colIndex, index) => {
@@ -63,9 +77,9 @@ function transform(cells) {
       ...DEFAULT_OPTS,
       label: header,
       data: [],
-      backgroundColor: COLORS[index],
-      borderColor: COLORS[index],
-      pointBorderColor: COLORS[index]
+      backgroundColor: getColor(index),
+      borderColor: getColor(index),
+      pointBorderColor: getColor(index)
     };
   });
 
